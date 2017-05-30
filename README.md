@@ -1,2 +1,2 @@
-# whos_that_pokemon
-A Discord bot that lets users play "Whos that Pokemon" together on a text channel. Scoreboard and best times included.
+# Whos That Pokemon
+A Discord bot that lets users play "Whos That Pokemon" together on a text channel. Scoreboard best times, ranks, and game modes included to make some what competition. This game is basicly first come first serve, the user to first type the name 100% correctly will get the point. 
