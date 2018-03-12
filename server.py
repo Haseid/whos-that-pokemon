@@ -1,6 +1,7 @@
 import discord
 import random
 import time
+import os
 from discord.ext.commands import Bot
 
 
@@ -12,6 +13,8 @@ pokemonNumber = {"Bulbasaur": "001", "Ivysaur": "002", "Venusaur": "003", "Charm
 pokemonsGen1 = ["Bulbasaur","Ivysaur","Venusaur","Charmander","Charmeleon","Charizard","Squirtle","Wartortle","Blastoise","Caterpie","Metapod","Butterfree","Weedle","Kakuna","Beedrill","Pidgey","Pidgeotto","Pidgeot","Rattata","Raticate","Spearow","Fearow","Ekans","Arbok","Pikachu","Raichu","Sandshrew","Sandslash","Nidoran","Nidorina","Nidoqueen","Nidoran","Nidorino","Nidoking","Clefairy","Clefable","Vulpix","Ninetales","Jigglypuff","Wigglytuff","Zubat","Golbat","Oddish","Gloom","Vileplume","Paras","Parasect","Venonat","Venomoth","Diglett","Dugtrio","Meowth","Persian","Psyduck","Golduck","Mankey","Primeape","Growlithe","Arcanine","Poliwag","Poliwhirl","Poliwrath","Abra","Kadabra","Alakazam","Machop","Machoke","Machamp","Bellsprout","Weepinbell","Victreebel","Tentacool","Tentacruel","Geodude","Graveler","Golem","Ponyta","Rapidash","Slowpoke","Slowbro","Magnemite","Magneton","Farfetch'd","Doduo","Dodrio","Seel","Dewgong","Grimer","Muk","Shellder","Cloyster","Gastly","Haunter","Gengar","Onix","Drowzee","Hypno","Krabby","Kingler","Voltorb","Electrode","Exeggcute","Exeggutor","Cubone","Marowak","Hitmonlee","Hitmonchan","Lickitung","Koffing","Weezing","Rhyhorn","Rhydon","Chansey","Tangela","Kangaskhan","Horsea","Seadra","Goldeen","Seaking","Staryu","Starmie","Mr.Mime","Scyther","Jynx","Electabuzz","Magmar","Pinsir","Tauros","Magikarp","Gyarados","Lapras","Ditto","Eevee","Vaporeon","Jolteon","Flareon","Porygon","Omanyte","Omastar","Kabuto","Kabutops","Aerodactyl","Snorlax","Articuno","Zapdos","Moltres","Dratini","Dragonair","Dragonite","Mewtwo","Mew"]
 #100 Pokemon
 pokemonsGen2 = ["Chikorita","Bayleef","Meganium","Cyndaquil","Quilava","Typhlosion","Totodile","Croconaw","Feraligatr","Sentret","Furret","Hoothoot","Noctowl","Ledyba","Ledian","Spinarak","Ariados","Crobat","Chinchou","Lanturn","Pichu","Cleffa","Igglybuff","Togepi","Togetic","Natu","Xatu","Mareep","Flaaffy","Ampharos","Bellossom","Marill","Azumarill","Sudowoodo","Politoed","Hoppip","Skiploom","Jumpluff","Aipom","Sunkern","Sunflora","Yanma","Wooper","Quagsire","Espeon","Umbreon","Murkrow","Slowking","Misdreavus","Unown","Wobbuffet","Girafarig","Pineco","Forretress","Dunsparce","Gligar","Steelix","Snubbull","Granbull","Qwilfish","Scizor","Shuckle","Heracross","Sneasel","Teddiursa","Ursaring","Slugma","Magcargo","Swinub","Piloswine","Corsola","Remoraid","Octillery","Delibird","Mantine","Skarmory","Houndour","Houndoom","Kingdra","Phanpy","Donphan","Porygon2","Stantler","Smeargle","Tyrogue","Hitmontop","Smoochum","Elekid","Magby","Miltank","Blissey","Raikou","Entei","Suicune","Larvitar","Pupitar","Tyranitar","Lugia","Ho-Oh","Celebi"]
+pokemonsGen3 = ["Treecko","Grovyle","Sceptile","Torchic","Combusken","Blaziken","Mudkip","Marshtomp","Swampert","Poochyena","Mightyena","Zigzagoon","Linoone","Wurmple","Silcoon","Beautifly","Cascoon","Dustox","Lotad","Lombre","Ludicolo","Seedot","Nuzleaf","Shiftry","Taillow","Swellow","Wingull","Pelipper","Ralts","Kirlia","Gardevoir","Surskit","Masquerain","Shroomish","Breloom","Slakoth","Vigoroth","Slaking","Nincada","Ninjask","Shedinja","Whismur","Loudred","Exploud","Makuhita","Hariyama","Azurill","Nosepass","Skitty","Delcatty","Sableye","Mawile","Aron","Lairon","Aggron","Meditite","Medicham","Electrike","Manectric","Plusle","Minun","Volbeat","Illumise","Roselia","Gulpin","Swalot","Carvanha","Sharpedo","Wailmer","Wailord","Numel","Camerupt","Torkoal","Spoink","Grumpig","Spinda","Trapinch","Vibrava","Flygon","Cacnea","Cacturne","Swablu","Altaria","Zangoose","Seviper","Lunatone","Solrock","Barboach","Whiscash","Corphish","Crawdaunt","Baltoy","Claydol","Lileep","Cradily","Anorith","Armaldo","Feebas","Milotic","Castform","Kecleon","Shuppet","Banette","Duskull","Dusclops","Tropius","Chimecho","Absol","Wynaut","Snorunt","Glalie","Spheal","Sealeo","Walrein","Clamperl","Huntail","Gorebyss","Relicanth","Luvdisc","Bagon","Shelgon","Salamence","Beldum","Metang","Metagross","Regirock","Regice","Registeel","Latias","Latios","Kyogre","Groudon","Rayquaza","Jirachi","Deoxys"]
+pokemonsGen4 = ["Turtwig","Grotle","Torterra","Chimchar","Monferno","Infernape","Piplup","Prinplup","Empoleon","Starly","Staravia","Staraptor","Bidoof","Bibarel","Kricketot","Kricketune","Shinx","Luxio","Luxray","Budew","Roserade","Cranidos","Rampardos","Shieldon","Bastiodon","Burmy","Wormadam","Mothim","Combee","Vespiquen","Pachirisu","Buizel","Floatzel","Cherubi","Cherrim","Shellos","Gastrodon","Ambipom","Drifloon","Drifblim","Buneary","Lopunny","Mismagius","Honchkrow","Glameow","Purugly","Chingling","Stunky","Skuntank","Bronzor","Bronzong","Bonsly","Mime Jr.","Happiny","Chatot","Spiritomb","Gible","Gabite","Garchomp","Munchlax","Riolu","Lucario","Hippopotas","Hippowdon","Skorupi","Drapion","Croagunk","Toxicroak","Carnivine","Finneon","Lumineon","Mantyke","Snover","Abomasnow","Weavile","Magnezone","Lickilicky","Rhyperior","Tangrowth","Electivire","Magmortar","Togekiss","Yanmega","Leafeon","Glaceon","Gliscor","Mamoswine","Porygon-Z","Gallade","Probopass","Dusknoir","Froslass","Rotom","Uxie","Mesprit","Azelf","Dialga","Palkia","Heatran","Regigigas","Giratina","Cresselia","Phione","Manaphy","Darkrai","Shaymin","Arceus"]
 # http://discordpy.readthedocs.io/en/latest/api.html?highlight=wait_for_message
 # fix general chat join game
 # fix score method()
@@ -54,14 +57,18 @@ async def on_ready():
 
 @my_bot.command()
 async def startGen1(*args):
-	channel = my_bot.get_channel("295737335100997632")
+	channel = my_bot.get_channel("<channel-id>")
 	read()
 	for i in random.sample(range(151), 151):
 		pokemon = pokemonsGen1[i]
 		await my_bot.say("\nWho's that Pokemon?")
-		await my_bot.send_file(channel, pokemonNumber[pokemon]+".png")
+		await my_bot.send_file(channel, "images/hidden/"+pokemonNumber[pokemon]+".png")
 
-		msg = await my_bot.wait_for_message(content=pokemon)
+		def check(msg):
+			return msg.content.upper().replace(" ", "") == pokemon.upper().replace(" ", "")
+
+		msg = await my_bot.wait_for_message(check=check)
+
 		if score.get(msg.author.name) is None:
 			score[msg.author.name] = 1
 		else:
@@ -69,23 +76,27 @@ async def startGen1(*args):
 			print (msg.author.name+": "+str(score[msg.author.name]))
 
 		await my_bot.say("Good job "+get_rank(msg.author.name)+", "+pokemon+" is correct! You've got "+str(score[msg.author.name])+" pokemon right!")
-		await my_bot.send_file(channel, "0"+pokemonNumber[pokemon]+".png")
+		await my_bot.send_file(channel, "images/shown/"+pokemonNumber[pokemon]+".png")
 
 		write()
 		#time.sleep(4)
-	await my_bot.say("\nGen 1 Complete type \"!startgen1\" to start again.")
+	await my_bot.say("\nGen 1 Complete type \"!startGen1\" to start again.")
 	return
 
 @my_bot.command()
 async def startGen2(*args):
-	channel = my_bot.get_channel("295737335100997632")
+	channel = my_bot.get_channel("<channel-id>")
 	read()
 	for i in random.sample(range(100), 100):
 		pokemon = pokemonsGen2[i]
 		await my_bot.say("\nWho's that Pokemon?")
-		await my_bot.send_file(channel, pokemonNumber[pokemon]+".png")
+		await my_bot.send_file(channel, "images/hidden/"+pokemonNumber[pokemon]+".png")
 
-		msg = await my_bot.wait_for_message(content=pokemon)
+		def check(msg):
+			return msg.content.upper().replace(" ", "") == pokemon.upper().replace(" ", "")
+
+		msg = await my_bot.wait_for_message(check=check)
+
 		if score.get(msg.author.name) is None:
 			score[msg.author.name] = 1
 		else:
@@ -93,24 +104,84 @@ async def startGen2(*args):
 			print (msg.author.name+": "+str(score[msg.author.name]))
 
 		await my_bot.say("Good job "+get_rank(msg.author.name)+", "+pokemon+" is correct! You've got "+str(score[msg.author.name])+" pokemon right!")
-		await my_bot.send_file(channel, "0"+pokemonNumber[pokemon]+".png")
+		await my_bot.send_file(channel, "images/shown/"+pokemonNumber[pokemon]+".png")
 
 		write()
 		#time.sleep(4)
-	await my_bot.say("\nGen 2 Complete type \"!startgen2\" to start again.")
+	await my_bot.say("\nGen 2 Complete type \"!startGen2\" to start again.")
+	return
+
+@my_bot.command()
+async def startGen3(*args):
+	channel = my_bot.get_channel("<channel-id>")
+	read()
+	for i in random.sample(range(135), 135):
+		pokemon = pokemonsGen3[i]
+		await my_bot.say("\nWho's that Pokemon?")
+		await my_bot.send_file(channel, "images/hidden/"+pokemonNumber[pokemon]+".png")
+
+		def check(msg):
+			return msg.content.upper().replace(" ", "") == pokemon.upper().replace(" ", "")
+
+		msg = await my_bot.wait_for_message(check=check)
+
+		if score.get(msg.author.name) is None:
+			score[msg.author.name] = 1
+		else:
+			score[msg.author.name] = score.get(msg.author.name)+1
+			print (msg.author.name+": "+str(score[msg.author.name]))
+
+		await my_bot.say("Good job "+get_rank(msg.author.name)+", "+pokemon+" is correct! You've got "+str(score[msg.author.name])+" pokemon right!")
+		await my_bot.send_file(channel, "images/shown/"+pokemonNumber[pokemon]+".png")
+
+		write()
+		#time.sleep(4)
+	await my_bot.say("\nGen 3 Complete type \"!startGen3\" to start again.")
+	return
+
+@my_bot.command()
+async def startGen4(*args):
+	channel = my_bot.get_channel("<channel-id>")
+	read()
+	for i in random.sample(range(107), 107):
+		pokemon = pokemonsGen4[i]
+		await my_bot.say("\nWho's that Pokemon?")
+		await my_bot.send_file(channel, "images/hidden/"+pokemonNumber[pokemon]+".png")
+
+		def check(msg):
+			return msg.content.upper().replace(" ", "") == pokemon.upper().replace(" ", "")
+
+		msg = await my_bot.wait_for_message(check=check)
+
+		if score.get(msg.author.name) is None:
+			score[msg.author.name] = 1
+		else:
+			score[msg.author.name] = score.get(msg.author.name)+1
+			print (msg.author.name+": "+str(score[msg.author.name]))
+
+		await my_bot.say("Good job "+get_rank(msg.author.name)+", "+pokemon+" is correct! You've got "+str(score[msg.author.name])+" pokemon right!")
+		await my_bot.send_file(channel, "images/shown/"+pokemonNumber[pokemon]+".png")
+
+		write()
+		#time.sleep(4)
+	await my_bot.say("\nGen 4 Complete type \"!startGen4\" to start again.")
 	return
 
 @my_bot.command()
 async def startAllGens(*args):
-	channel = my_bot.get_channel("295737335100997632")
+	channel = my_bot.get_channel("<channel-id>")
 	read()
-	allpokemon = pokemonsGen1 + pokemonsGen2
-	for i in random.sample(range(250), 250):
+	allpokemon = pokemonsGen1 + pokemonsGen2 + pokemonsGen3 + pokemonsGen4
+	for i in random.sample(range(493), 493):
 		pokemon = allpokemon[i]
 		await my_bot.say("\nWho's that Pokemon?")
-		await my_bot.send_file(channel, pokemonNumber[pokemon]+".png")
+		await my_bot.send_file(channel, "images/hidden/"+pokemonNumber[pokemon]+".png")
 
-		msg = await my_bot.wait_for_message(content=pokemon)
+		def check(msg):
+			return msg.content.upper().replace(" ", "") == pokemon.upper().replace(" ", "")
+
+		msg = await my_bot.wait_for_message(check=check)
+
 		if score.get(msg.author.name) is None:
 			score[msg.author.name] = 1
 		else:
@@ -118,11 +189,11 @@ async def startAllGens(*args):
 			print (msg.author.name+": "+str(score[msg.author.name]))
 
 		await my_bot.say("Good job "+get_rank(msg.author.name)+", "+pokemon+" is correct! You've got "+str(score[msg.author.name])+" pokemon right!")
-		await my_bot.send_file(channel, "0"+pokemonNumber[pokemon]+".png")
+		await my_bot.send_file(channel, "images/shown/"+pokemonNumber[pokemon]+".png")
 
 		write()
 		#time.sleep(4)
-	await my_bot.say("\nAll Pokemon Complete type \"!startall\" to start again.")
+	await my_bot.say("\nAll Pokemon Complete type \"!startAllGens\" to start again.")
 	return
 
 @my_bot.command()
@@ -139,12 +210,12 @@ async def stats(*args):
 @my_bot.command()
 async def timeAttack(*args):
 	read()
-	channel = my_bot.get_channel("295737335100997632")
+	channel = my_bot.get_channel("<channel-id>")
 	players = []
 	timeScore = {}
 
-	await my_bot.say("Type something in chat to join in on TimeAttack\nMax 5 Players, you got 10 seconds.")
-	t_end = time.time() + 10
+	await my_bot.say("Type something in chat to join in on TimeAttack\nMax 5 Players, you got 20 seconds.")
+	t_end = time.time() + 20
 	while time.time() < t_end:
 		msg = await my_bot.wait_for_message(channel=channel)
 		if (msg.author in players) or (msg.author.name == "WTP"):
@@ -170,16 +241,16 @@ async def timeAttack(*args):
 		t_end = time.time() + 30
 		while time.time() < t_end:
 			pokemon = random.choice(pokemonsGen1)
-			await my_bot.send_file(channel, pokemonNumber[pokemon]+".png", content="Who's that Pokemon?")
+			await my_bot.send_file(channel, "images/hidden/"+pokemonNumber[pokemon]+".png", content="Who's that Pokemon?")
 			msg = await my_bot.wait_for_message(author=player)
-			if msg.content == pokemon:
+			if msg.content.upper().replace(" ", "") == pokemon.upper().replace(" ", ""):
 				if timeScore.get(msg.author.name) is None:
 					timeScore[msg.author.name] = 1
 				else:
 					timeScore[msg.author.name] = timeScore.get(msg.author.name)+1
 				await my_bot.say("Correct!")
 			else:
-				await my_bot.send_file(channel, "0"+pokemonNumber[pokemon]+".png", content="WRONG! "+pokemon+" is the correct answer.")
+				await my_bot.send_file(channel, "images/shown/"+pokemonNumber[pokemon]+".png", content="WRONG! "+pokemon+" is the correct answer.")
 	sortScore = sorted(timeScore.items(), key=lambda x:x[1])
 	sortScore.reverse()
 	scoreString = "\n\nDone!\nFinal score is: "
@@ -194,4 +265,4 @@ async def timeAttack(*args):
 	await my_bot.say(scoreString)
 	return
 
-my_bot.run("Mjk1NjA0Nzc5MjkwMzI5MDg5.C7mJtQ.wHBIGxniKANuPL-Kz363w2sB3-w")
+my_bot.run("<bot-id>")
